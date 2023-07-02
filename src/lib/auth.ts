@@ -32,7 +32,6 @@ export const authOptions: NextAuthOptions = {
 		},
 
 		async jwt({ token, user }) {
-			console.log('user', user)
 			const dbUser = await db.user.findFirst({
 				where: {
 					email: token.email,
