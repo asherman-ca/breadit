@@ -4,6 +4,7 @@ import { FC } from 'react'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import { notFound } from 'next/navigation'
 import MiniCreatePost from '@/components/MiniCreatePost'
+import PostFeed from '@/components/PostFeed'
 
 interface pageProps {
 	params: { slug: string }
@@ -38,6 +39,7 @@ const page = async ({ params }: pageProps) => {
 			</h1>
 
 			<MiniCreatePost session={session} />
+			<PostFeed />
 		</>
 	)
 }
