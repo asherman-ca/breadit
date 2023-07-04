@@ -31,7 +31,24 @@ export async function POST(req: Request) {
 			)
 		}
 
-		// create subreddit and associate it with the user
+		// check if user is the creator of the subreddit
+		const subreddit = await db.subreddit.findFirst({
+			where: {
+				id: subredditId,
+				creatorId: session.user.id,
+			},
+		})
+
+		if (subreddit) {
+			return new Response(
+				"You can't unsubscribe from a subreddit you created.",
+				{
+					status: 400,
+				}
+			)
+		}
+
+		// delete subscription
 		await db.subscription.delete({
 			where: {
 				userId_subredditId: {
@@ -43,7 +60,7 @@ export async function POST(req: Request) {
 
 		return new Response(subredditId)
 	} catch (error) {
-		error
+		// error
 		if (error instanceof z.ZodError) {
 			return new Response(error.message, { status: 400 })
 		}
