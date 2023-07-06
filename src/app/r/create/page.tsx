@@ -50,6 +50,7 @@ const Page = () => {
 			})
 		},
 		onSuccess: (data) => {
+			router.refresh()
 			router.push(`/r/${data}`)
 		},
 	})
