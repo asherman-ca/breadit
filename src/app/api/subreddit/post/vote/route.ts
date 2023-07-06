@@ -27,19 +27,19 @@ export async function PATCH(req: Request) {
 			},
 		})
 
-		const post = await db.post.findUnique({
-			where: {
-				id: postId,
-			},
-			include: {
-				author: true,
-				votes: true,
-			},
-		})
+		// const post = await db.post.findUnique({
+		// 	where: {
+		// 		id: postId,
+		// 	},
+		// 	include: {
+		// 		author: true,
+		// 		votes: true,
+		// 	},
+		// })
 
-		if (!post) {
-			return new Response('Post not found', { status: 404 })
-		}
+		// if (!post) {
+		// 	return new Response('Post not found', { status: 404 })
+		// }
 
 		if (existingVote) {
 			// if vote type is the same as existing vote, delete the vote
@@ -53,12 +53,27 @@ export async function PATCH(req: Request) {
 					},
 				})
 
+				const post = await db.post.findUnique({
+					where: {
+						id: postId,
+					},
+					include: {
+						author: true,
+						votes: true,
+					},
+				})
+				if (!post) {
+					return new Response('Post not found', { status: 404 })
+				}
+
 				// Recount the votes
 				const votesAmt = post.votes.reduce((acc, vote) => {
 					if (vote.type === 'UP') return acc + 1
 					if (vote.type === 'DOWN') return acc - 1
 					return acc
 				}, 0)
+				console.log('voteType', voteType)
+				console.log('votesAmt', votesAmt)
 
 				if (votesAmt >= CACHE_AFTER_UPVOTES) {
 					const cachePayload: CachedPost = {
@@ -89,12 +104,28 @@ export async function PATCH(req: Request) {
 				},
 			})
 
+			const post = await db.post.findUnique({
+				where: {
+					id: postId,
+				},
+				include: {
+					author: true,
+					votes: true,
+				},
+			})
+			if (!post) {
+				return new Response('Post not found', { status: 404 })
+			}
+
 			// Recount the votes
 			const votesAmt = post.votes.reduce((acc, vote) => {
 				if (vote.type === 'UP') return acc + 1
 				if (vote.type === 'DOWN') return acc - 1
 				return acc
 			}, 0)
+
+			console.log('voteType', voteType)
+			console.log('votesAmt', votesAmt)
 
 			if (votesAmt >= CACHE_AFTER_UPVOTES) {
 				const cachePayload: CachedPost = {
@@ -121,12 +152,27 @@ export async function PATCH(req: Request) {
 			},
 		})
 
+		const post = await db.post.findUnique({
+			where: {
+				id: postId,
+			},
+			include: {
+				author: true,
+				votes: true,
+			},
+		})
+		if (!post) {
+			return new Response('Post not found', { status: 404 })
+		}
+
 		// Recount the votes
 		const votesAmt = post.votes.reduce((acc, vote) => {
 			if (vote.type === 'UP') return acc + 1
 			if (vote.type === 'DOWN') return acc - 1
 			return acc
 		}, 0)
+		console.log('voteType', voteType)
+		console.log('votesAmt', votesAmt)
 
 		if (votesAmt >= CACHE_AFTER_UPVOTES) {
 			const cachePayload: CachedPost = {
