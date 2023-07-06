@@ -72,8 +72,8 @@ export async function PATCH(req: Request) {
 					if (vote.type === 'DOWN') return acc - 1
 					return acc
 				}, 0)
-				console.log('voteType', voteType)
-				console.log('votesAmt', votesAmt)
+				// console.log('voteType', voteType)
+				// console.log('votesAmt', votesAmt)
 
 				if (votesAmt >= CACHE_AFTER_UPVOTES) {
 					const cachePayload: CachedPost = {
@@ -124,8 +124,8 @@ export async function PATCH(req: Request) {
 				return acc
 			}, 0)
 
-			console.log('voteType', voteType)
-			console.log('votesAmt', votesAmt)
+			// console.log('voteType', voteType)
+			// console.log('votesAmt', votesAmt)
 
 			if (votesAmt >= CACHE_AFTER_UPVOTES) {
 				const cachePayload: CachedPost = {
@@ -171,8 +171,8 @@ export async function PATCH(req: Request) {
 			if (vote.type === 'DOWN') return acc - 1
 			return acc
 		}, 0)
-		console.log('voteType', voteType)
-		console.log('votesAmt', votesAmt)
+		// console.log('voteType', voteType)
+		// console.log('votesAmt', votesAmt)
 
 		if (votesAmt >= CACHE_AFTER_UPVOTES) {
 			const cachePayload: CachedPost = {

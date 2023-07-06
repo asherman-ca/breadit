@@ -62,6 +62,7 @@ const PostVoteClient = ({
 			})
 		},
 		onMutate: (type: VoteType) => {
+			// happens immediately - before action is resolved
 			if (currentVote === type) {
 				// User is voting the same way again, so remove their vote
 				setCurrentVote(undefined)
@@ -70,10 +71,11 @@ const PostVoteClient = ({
 			} else {
 				// User is voting in the opposite direction, so subtract 2
 				// or there is no vote, so add/subtract 1
-				setCurrentVote(type)
 				if (type === 'UP') setVotesAmt((prev) => prev + (currentVote ? 2 : 1))
 				else if (type === 'DOWN')
 					setVotesAmt((prev) => prev - (currentVote ? 2 : 1))
+
+				setCurrentVote(type)
 			}
 		},
 	})
