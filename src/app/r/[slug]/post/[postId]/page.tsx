@@ -9,6 +9,7 @@ import { buttonVariants } from '@/components/ui/Button'
 import { ArrowBigDown, ArrowBigUp, Loader2 } from 'lucide-react'
 import { formatTimeToNow } from '@/lib/utils'
 import EditorOutput from '@/components/EditorOutput'
+import CommentsSection from '@/components/CommentsSection'
 
 interface PageProps {
 	params: {
@@ -74,11 +75,14 @@ const page = async ({ params }: PageProps) => {
 					</h1>
 
 					<EditorOutput content={post?.content ?? cachedPost.content} />
-					{/* <Suspense
+					<Suspense
 						fallback={
 							<Loader2 className='h-5 w-5 animate-spin text-zinc-500' />
 						}
-					></Suspense> */}
+					>
+						{/* @ts-expect-error Server Component */}
+						<CommentsSection postId={post?.id ?? cachedPost.id} />
+					</Suspense>
 				</div>
 			</div>
 		</div>
