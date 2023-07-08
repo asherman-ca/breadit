@@ -3,6 +3,7 @@ import { Post } from '@prisma/client'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import CreateComment from './CreateComment'
+import PostComment from './PostComment'
 
 interface CommentsSectionProps {
 	postId: string
@@ -52,7 +53,9 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
 
 						return (
 							<div key={topLevelComment.id} className='flex flex-col'>
-								<div className='mb-2'>Post Comment</div>
+								<div className='mb-2'>
+									<PostComment comment={topLevelComment} />
+								</div>
 								{topLevelComment.replies
 									.sort((a, b) => b.votes.length - a.votes.length) // Sort replies by most liked
 									.map((reply) => {
