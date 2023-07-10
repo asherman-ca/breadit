@@ -4,6 +4,7 @@ import { Button, buttonVariants } from './ui/Button'
 import { getAuthSession } from '@/lib/auth'
 import { signOut } from 'next-auth/react'
 import { UserAccountNav } from './UserAccountNav'
+import SearchBar from './SearchBar'
 
 const Navbar = async () => {
 	const session = await getAuthSession()
@@ -17,6 +18,8 @@ const Navbar = async () => {
 						Breadit
 					</p>
 				</Link>
+
+				<SearchBar />
 
 				{session ? (
 					<UserAccountNav user={session.user} />
